@@ -1,0 +1,5 @@
+import test from"node:test";import assert from"node:assert/strict";import{decision,compareDecisions}from"../src/index.mjs";import{createFakeProvider}from"../src/jev.mjs";
+const a={id:"a",ecli:"ECLI:FR:TEST:2024:A",court:"Test",date:"2024-01-01",holding:"Rule A",sourceUrl:"https://x.test/a"};const b={id:"b",ecli:"ECLI:FR:TEST:2025:B",court:"Test",date:"2025-01-01",holding:"Rule B",sourceUrl:"https://x.test/b"};
+test("requires a sourced holding",()=>assert.throws(()=>decision({}),/holding/));
+test("enforces chronology before calling Jev",async()=>{const p=createFakeProvider(()=>{throw Error("must not run")});await assert.rejects(compareDecisions(b,a,p),/chronologically/);assert.equal(p.calls,0)});
+test("keeps every legal relation under review",async()=>{const p=createFakeProvider(()=>({model:"jev-1.13.0",answers:{relation:{type:"choice",choice:"limits",probabilities:{follows:.05,distinguishes:.1,limits:.8,possible_overruling:.04,unrelated:.01},confidence:.8}},usage:{input_tokens:10,output_tokens:0}}));const r=await compareDecisions(a,b,p);assert.equal(r.relation,"limits");assert.equal(r.review,true)});
