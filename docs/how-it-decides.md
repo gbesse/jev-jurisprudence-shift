@@ -1,5 +1,5 @@
-# How it decides
+# Comment la décision est prise
 
-Dates, identity and source references are validated in code. Jev compares only supplied holdings. Every result is a research lead requiring a jurist to inspect the full decisions and current law.
+Les dates, identités et sources sont validées par le code. Jev compare uniquement les motifs fournis. Chaque résultat est une piste de recherche qui exige la lecture intégrale des décisions par un juriste.
 
-The exact questions and criteria are versioned beside the call in [src/index.mjs](../src/index.mjs). Synthetic demo probabilities are illustrative. Calibrate thresholds on representative human labels before operational use.
+La question et les critères exacts sont versionnés dans [`src/index.mjs`](../src/index.mjs). Les probabilités de la démonstration sont synthétiques. Calibrez les seuils de revue sur des cas français annotés et représentatifs avant tout usage opérationnel.

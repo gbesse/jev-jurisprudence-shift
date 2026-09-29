@@ -1,7 +1,7 @@
 {
   "name": "@gbesse/jev-jurisprudence-shift",
-  "version": "0.1.0",
-  "description": "Compare French court holdings and surface reviewable changes in jurisprudential direction.",
+  "version": "0.1.1",
+  "description": "Compare des motifs de décisions françaises et signale les évolutions possibles de la jurisprudence.",
   "type": "module",
   "license": "MIT",
   "engines": {
