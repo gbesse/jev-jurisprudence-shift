@@ -1,6 +1,6 @@
 {
   "name": "@gbesse/jev-jurisprudence-shift",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Compare des motifs de décisions françaises et signale les évolutions possibles de la jurisprudence.",
   "type": "module",
   "license": "MIT",

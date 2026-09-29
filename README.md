@@ -2,7 +2,7 @@
 
 **Compare des motifs de décisions françaises et signale les évolutions possibles de la jurisprudence.**
 
-[![Tests](https://github.com/gbesse/jev-jurisprudence-shift/actions/workflows/test.yml/badge.svg)](https://github.com/gbesse/jev-jurisprudence-shift/actions/workflows/test.yml) [MIT](LICENSE) · Node.js 22+ · v0.1.1 · Documentation française
+[![Tests](https://github.com/gbesse/jev-jurisprudence-shift/actions/workflows/test.yml/badge.svg)](https://github.com/gbesse/jev-jurisprudence-shift/actions/workflows/test.yml) [MIT](LICENSE) · Node.js 22+ · v0.1.2 · Documentation française
 
 Le dépôt compare deux solutions sourcées et classe la décision la plus récente comme confirmation, distinction, limitation, possible revirement ou décision sans rapport.
 
@@ -16,6 +16,63 @@ npm run demo
 ```
 
 La démonstration utilise uniquement des données et probabilités synthétiques. Elle n’effectue aucun appel réseau et ne constitue pas une mesure de qualité de Jev.
+
+## Exemple exécutable
+
+Cet exemple compare deux motivations synthétiques de la Cour de cassation. Il utilise un fournisseur Jev simulé : aucune clé API ni connexion réseau n’est nécessaire. L’assertion intégrée fait échouer la commande si le comportement attendu change.
+
+Le code complet de [`examples/demo.mjs`](examples/demo.mjs) est directement copiable :
+
+```js
+// Objectif : démontrer la frontière de décision sans appel réseau.
+import assert from "node:assert/strict";
+import { compareDecisions } from "../src/index.mjs";
+import { createFakeProvider } from "../src/jev.mjs";
+const provider = createFakeProvider(() => ({
+  model: "jev-1.13.0",
+  answers: {
+    relation: {
+      type: "choice",
+      choice: "distinguishes",
+      probabilities: {
+        follows: 0.08,
+        distinguishes: 0.79,
+        limits: 0.08,
+        possible_overruling: 0.03,
+        unrelated: 0.02,
+      },
+      confidence: 0.79,
+    },
+  },
+  usage: { input_tokens: 80, output_tokens: 0 },
+}));
+const earlier = {
+  id: "synthetic-1",
+  court: "Cour de cassation",
+  date: "2024-01-10",
+  holding: "La règle antérieure s’applique à toute rupture sans préavis.",
+  sourceUrl: "https://www.courdecassation.fr/",
+};
+const later = {
+  id: "synthetic-2",
+  court: "Cour de cassation",
+  date: "2026-02-12",
+  holding:
+    "La règle est écartée lorsque les faits établissent une urgence distincte.",
+  sourceUrl: "https://www.courdecassation.fr/",
+};
+const resultat = await compareDecisions(earlier, later, provider);
+assert.equal(resultat.relation, "distinguishes");
+console.log(JSON.stringify(resultat, null, 2));
+```
+
+Lancez-le avec :
+
+```sh
+npm run demo
+```
+
+Résultat à repérer : `relation: distinguishes`.
 
 ## Utilisation de la bibliothèque
 
