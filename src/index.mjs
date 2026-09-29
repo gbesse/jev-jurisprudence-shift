@@ -1,4 +1,4 @@
-// Purpose: Compare sourced holdings while keeping chronology and legal conclusions review-owned.
+// Objectif : implémenter la frontière de décision métier propre au dépôt.
 export const RELATIONS=["follows","distinguishes","limits","possible_overruling","unrelated"];
 export function decision(input){if(!input?.id || !input?.court || !input?.date || !input?.holding || !input?.sourceUrl)
   throw new TypeError("A decision needs id, court, date, holding and sourceUrl");const date=new Date(input.date);if(Number.isNaN(date.valueOf()))throw new TypeError("date must be an ISO date");
