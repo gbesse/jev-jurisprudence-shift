@@ -2,7 +2,7 @@
 
 **Compare des motifs de décisions françaises et signale les évolutions possibles de la jurisprudence.**
 
-[![Tests](https://github.com/gbesse/jev-jurisprudence-shift/actions/workflows/test.yml/badge.svg)](https://github.com/gbesse/jev-jurisprudence-shift/actions/workflows/test.yml) [MIT](LICENSE) · Node.js 22+ · v0.1.2 · Documentation française
+[![Tests](https://github.com/gbesse/jev-jurisprudence-shift/actions/workflows/test.yml/badge.svg)](https://github.com/gbesse/jev-jurisprudence-shift/actions/workflows/test.yml) [MIT](LICENSE) · Node.js 22+ · v0.1.3 · Documentation française
 
 Le dépôt compare deux solutions sourcées et classe la décision la plus récente comme confirmation, distinction, limitation, possible revirement ou décision sans rapport.
 
@@ -69,10 +69,20 @@ console.log(JSON.stringify(resultat, null, 2));
 Lancez-le avec :
 
 ```sh
-npm run demo
+npm run demo:principal
 ```
 
 Résultat à repérer : `relation: distinguishes`.
+
+### Cas limite à tester
+
+Une chronologie inversée est refusée avant toute comparaison juridique. Le code se trouve dans [`examples/cas-limite.mjs`](examples/cas-limite.mjs).
+
+```sh
+npm run demo:limite
+```
+
+Résultat à repérer : `gardeFou: chronologie_invalide · appels Jev: 0`. La commande `npm run demo` exécute les deux exemples.
 
 ## Utilisation de la bibliothèque
 
